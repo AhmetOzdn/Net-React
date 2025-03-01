@@ -1,196 +1,203 @@
-﻿using System.Text.RegularExpressions; // Regex kütüphanesini ekledik. şifredeki özel karakter ve büyük harf sorgusu için kullanacağız.
+﻿
+// 1-For döngüsü ile sayının rakamlarının toplamını bulan algoritma 
+    Console.Write("Bir sayı girin: ");
+    int inputNumber = Convert.ToInt32(Console.ReadLine());
 
-// 1: Sayının Pozitif, Negatif veya Sıfır Olduğunu Belirleme (if-else)
+    int sum = 0;
 
-Console.Write("Bir sayı giriniz: ");
-int input = Convert.ToInt32(Console.ReadLine());
-
-if (input % 2 == 0)
-{
-    if (input != 0)
+    for (; inputNumber > 0; inputNumber /= 10)
     {
-        Console.WriteLine("Girdiğiniz sayi çift sayıdır.");
+        sum += inputNumber % 10;
     }
-    else
+
+    Console.WriteLine("Girdiğiniz Sayının Rakamları Toplamı: " + sum);
+
+// 2-While döngüsü ile kullanıcıdan belirli şartlara uyan bir değer alan algoritma
+
+Console.Write("Bir sayı girin: ");
+    int selectedNumber = Convert.ToInt32(Console.ReadLine());
+
+    while (selectedNumber > 0)
     {
-        Console.WriteLine("Girdiğiniz sayı çift ve sıfır sayısıdır.");
+        if (selectedNumber >= 10 && selectedNumber <= 100)
+        {
+            Console.WriteLine("Girilen sayı 0-100 arasındadır.");
+            break;
+        }
+        Console.Write("Lütfen 10 ila 100 arasında bir sayı girin: ");
+        selectedNumber = Convert.ToInt32(Console.ReadLine());
     }
-}
-else if (input % 2 != 0)
-{
-    Console.WriteLine("Girdiğiniz sayi tek sayıdır.");
-}
-else
-{
-    Console.WriteLine("Lütfen bir sayı giriniz.");
-}
 
 
+// 3-foreach döngüsü ile kişilerin yaş kategorisini belirleyen algoritmayı yazınız.
 
-// 2: Gün İsmi Belirleme (switch-case)
-Console.Write("1-7 Arasında bir değer giriniz : ");
-int day = Convert.ToInt32(Console.ReadLine());
+List<int> peopleAges = new List<int> { 15, 25, 45, 65, 33, 25, 57, 42, 79, 11, 8, 3, 24, 28 };
 
-switch (day)
-{
-    case 1:
-        Console.Write(day +" => Pazartesi");
-        break;
-    case 2:
-        Console.Write(day +" => Salı");
-        break;
-    case 3:
-        Console.Write(day + " => Çarşamba");
-        break;
-    case 4:
-        Console.Write(day + " => Perşembe");
-        break;
-    case 5:
-        Console.Write(day + " => Cuma");
-        break;
-    case 6:
-        Console.Write(day + " => Cumartesi");
-        break;
-    case 7:
-        Console.Write(day + " => Pazar");
-        break;
-    default:
-        Console.Write("Lütfen 1-7 arasında bir değer giriniz.");
-        break;
-}
+    foreach (var age in peopleAges)
+    {
+        if (age > 0 && age <= 12)
+        {
+            Console.WriteLine("Çocuk");
+        }
+        else if (age > 12 && age <= 19)
+        {
+            Console.WriteLine("Genç");
+        }
+        else if (age >= 20 && age <= 64)
+        {
+            Console.WriteLine("Yetişkin");
+        }
+        else
+        {
+            Console.WriteLine("Yaşlı");
+        }
+    }
 
-// 3-Basit Hesap Makinesi(switch-case)
-Console.Write("İşlem yapmak istediğiniz ilk sayıyı giriniz : ");
-int number1 = Convert.ToInt32(Console.ReadLine());
+// 4-Bir dizide tekrar eden elemanları bulan algoritmayı yazınız.
 
-Console.Write("İşlem yapmak istediğiniz ikinci sayıyı giriniz : ");
-int number2 = Convert.ToInt32(Console.ReadLine());
+int[] numbers = { 1, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    List<int> duplicateNumbers = new List<int>();
 
-Console.Write("Yapmak istediğiniz işlemi seçiniz : \n1-Toplama\n2-Çıkarma\n3-Çarpma\n4-Bölme\n");
-int operation = Convert.ToInt32(Console.ReadLine());
-
-switch (operation)
-{
-    case 1:
-        Console.WriteLine("Toplama işlemi sonucu : " + (number1 + number2));
-        break;
-    case 2:
-        Console.WriteLine("Çıkarma işlemi sonucu : " + (number1 - number2));
-        break;
-    case 3:
-        Console.WriteLine("Çarpma işlemi sonucu : " + (number1 * number2));
-        break;
-    case 4:
-        Console.WriteLine("Bölme işlemi sonucu : " + (number1 / number2));
-        break;
-    default:
-        Console.WriteLine("Lütfen 1-4 arasında bir değer giriniz.");
-        break;
-}
-
-//4-Üç Sayının En Büyüğünü Bulma (if-else)
-
-Console.Write("1. sayıyı giriniz : ");
-int number1 = Convert.ToInt32(Console.ReadLine());
-Console.Write("2. sayıyı giriniz : ");
-int number2 = Convert.ToInt32(Console.ReadLine());
-Console.Write("3. sayıyı giriniz : ");
-int number3 = Convert.ToInt32(Console.ReadLine());
-
-Console.Write("Yapmak istediğiniz işlemi seçiniz : \n1-Büyükten Küçüğe Sıralama\n2-Küçükten Büyüğe Sıralama\n3-En Büyük Sayıyı Bulma\n4-En Küçük Sayıyı Bulma\n");
-int operation = Convert.ToInt32(Console.ReadLine());
-
-if (operation == 1)
-{
-    int[] numbers = { number1, number2, number3 };
-    Array.Sort(numbers);
-    Array.Reverse(numbers);
-    Console.WriteLine("Sayıların büyükten küçüğe sıralanmış hali aşağıdadır.");
     for (int i = 0; i < numbers.Length; i++)
     {
-        Console.Write(numbers[i]);
-
-        if (i < numbers.Length - 1)
+        for (int j = i + 1; j < numbers.Length; j++)
         {
-            Console.Write(" > ");
+            if (numbers[i] == numbers[j] && !duplicateNumbers.Contains(numbers[i]))
+            {
+                duplicateNumbers.Add(numbers[i]);
+            }
         }
     }
-}
-else if (operation == 2)
-{
-    int[] numbers = { number1, number2, number3 };
-    Array.Sort(numbers);
-    Console.WriteLine("Sayıların  küçükten büyüğe  sıralanmış hali aşağıdadır.");
-    for (int i = 0; i < numbers.Length; i++)
+    Console.Write("Tekrar Eden Sayılar : ");
+    foreach (var number in duplicateNumbers)
     {
-        Console.Write(numbers[i]);
-
-        if (i < numbers.Length - 1)
-        {
-            Console.Write(" < ");
-        }
+        Console.Write(number + " ,");
     }
-}
-else if (operation == 3)
-{
-    Console.WriteLine("Girmiş olduğunuz sayılar arasından en büyüğü aşağıdadır.");
-    int[] numbers = { number1, number2, number3 };
-    int maxNumber = Int32.MinValue;
-    for (int i = 0; i<numbers.Length; i++)
+
+// 5-Bir dizide en uzun ve en kısa kelimeyi bulan algoritmayı yazınız.
+
+string[] words = { "elma", "armut", "kiraz", "karpuz", "muz", "kavun", "kestane" };
+
+    string longestWord;
+
+    for (int i = 1; i < words.Length; i++)
     {
-        if (numbers[i] > maxNumber)
+        for (int j = 0; j < words.Length - i; j++)
         {
-            maxNumber = numbers[i];
+            if (words[j].Length > words[j + 1].Length)
+            {
+                string temp = words[j];
+                words[j] = words[j + 1];
+                words[j + 1] = temp;
+            }
         }
     }
-    Console.WriteLine(maxNumber);
-}
-else if (operation == 4)
-{
-    Console.WriteLine("Girmiş olduğunuz sayılar arasından en küçüğü aşağıdadır.");
-    int[] numbers = { number1, number2, number3 };
-    int minNumber = Int32.MaxValue;
-    for (int i = 0; i<numbers.Length; i++)
+
+    Console.WriteLine("En Kısa Kelime : " + words[0]);
+    Console.WriteLine("En Uzun Kelime : " + words[words.Length - 1]);
+
+
+// 6-Kullanıcının girdiği bir cümleyi diziye kaydeden ve alfabetik olarak sıralayan algoritmayı yazınız.
+Console.Write("Bir cümle giriniz : ");
+    string sentence = Console.ReadLine();
+
+    string[] words = sentence.Split(' ');
+
+    Array.Sort(words);
+
+    Console.WriteLine("Alfabetik Sıralama : ");
+    foreach (var word in words)
     {
-        if (numbers[i] < minNumber)
+        Console.WriteLine(word);
+    }
+
+
+// 7-Bir string dizisinin boyutunu dinamik olarak genişleten algoritmayı yazınız.
+
+string[] names = new string[3] { "Ali", "Veli", "Melih" };
+
+    Console.Write("Dizinin yeni boyutunu giriniz : ");
+    int newSize = Convert.ToInt32(Console.ReadLine());
+
+    Array.Resize(ref names, newSize);
+
+    Console.WriteLine("Dizinin Yeni Boyutu : " + names.Length);
+
+// 8-Kullanıcının girdiği kelimeleri listeye kaydeden ve tersten yazdıran algoritmayı yazınız
+Console.WriteLine("Eğer çıkmak isterseniz değer girmeden enter tuşuna basınız ");
+    Console.Write("Lütfen bir kelime giriniz : ");
+    string word = Console.ReadLine();
+
+    List<string> words = new List<string>();
+
+    while (!string.IsNullOrEmpty(word))
+    {
+        words.Add(word);
+        Console.Write("Lütfen bir kelime giriniz : ");
+        word = Console.ReadLine();
+    }
+
+    words.Reverse();
+
+    Console.WriteLine("Girilen Kelimelerin Ters Sıralaması : ");
+    Console.Write(string.Join(",", words));
+
+//9-Kullanıcıdan ratgele sayılar alıp listeye ekleyen,bu sayıların ortalamasını alan ve bu sayıları küçükten büyüğe sıralayan algoritmayı yazınız.
+
+Console.WriteLine("Eğer çıkmak isterseniz 'close' yazıp Enter'a basınız.");
+
+    List<int> randomNumbers = new List<int>();
+
+    while (true)
+    {
+        Console.Write("Rastgele sayı eklemek için bir sayı giriniz : ");
+        string input = Console.ReadLine();
+
+        if (input == "close")
         {
-            minNumber = numbers[i];
+            break;
+        }
+
+        if (int.TryParse(input, out int randomNumber)) // TryParse metodu ile kullanıcının girdiği değerin sayı olup olmadığını kontrol ediyoruz.Eğer burada Convert.ToInt32() işlemi yaparsak  kullanıcı sayı dışında bir değer girdiğinde program hata verecektir.
+        {
+            randomNumbers.Add(randomNumber);
+        }
+        else
+        {
+            Console.WriteLine("Lütfen geçerli bir sayı girin veya çıkmak için 'close' yazın.");
         }
     }
-    Console.WriteLine(minNumber);
-}
-else
-{
-    Console.WriteLine("Lütfen 1-4 arasında bir değer giriniz.");
-}
 
-//5-Şifre Güçlülüğünü Kontrol Etme (if-else)
+    int sum = 0;
+    for (int i = 0; i < randomNumbers.Count; i++)
+    {
+        sum += randomNumbers[i];
+    }
+    int averageOfRandomNumbers = randomNumbers.Count > 0 ? sum / randomNumbers.Count : 0;
 
 
-Console.Write("Şifrenizi oluşturunuz : ");
-string password = Console.ReadLine() ?? "";
+    randomNumbers.Sort();
+    Console.WriteLine("Girilen Rastgele Sayıların Küçükten Büyüğe Sıralanmış Hali: " + string.Join(", ", randomNumbers));
+    Console.WriteLine("Girilen Rastgele Sayıların Ortalama Değeri: " + averageOfRandomNumbers);
 
-if (password.Length < 8)
-{
-    Console.WriteLine("Şifre en az 8 karakter olmalıdır !");
 
-    Console.Write("Şifrenizi tekrar oluşturunuz : ");
-    password = Console.ReadLine() ?? "";
-}
-else if (!Regex.IsMatch(password, @"[@#$%]"))
-{
-    Console.WriteLine("Şifre en az bir adet @,#,$ veya % karakterlerinden birini içermelidir !");
-    Console.Write("Şifrenizi tekrar oluşturunuz : ");
-    password = Console.ReadLine() ?? "";
-}
-else if (!Regex.IsMatch(password, @"[A-Z]"))
-{
-    Console.WriteLine("Şifre en az bir adet büyük harf içermelidir !");
-    Console.Write("Şifrenizi tekrar oluşturunuz : ");
-    password = Console.ReadLine() ?? "";
-}
-else
-{
-    Console.WriteLine("Şifre başarılı bir şekilde oluşturuldu !");
-    Console.WriteLine("Şifreniz : " + password);
-}
+// 10-Bir sayı listesinde 10’dan küçük olanları silen algoritmayı yazınız.
+List<int> numbersList = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+
+
+    int deleteNumber(int deletedNumberArea)
+    {
+        numbersList.RemoveAll(number => number < deletedNumberArea);
+        return deletedNumberArea;
+    }
+
+    deleteNumber(5);
+
+    Console.WriteLine(string.Join(",", numbersList));
+    Console.WriteLine($"Listenin kalan eleman sayısı : {numbersList.Count}");
+
+
+//11-Öğrenci notlarının olduğu bir listede 50’nin altındaki tüm notları 50 olarak güncelleyen bir algoritma yazınız.
+    List<int> studentGrades = new List<int> { 45, 55, 65, 75, 85, 95, 35, 25, 15, 5, 95, 85, 75, 65, 55, 45, 35, 25, 15, 5 };
+    studentGrades = studentGrades.Select(grade => grade < 50 ? 50 : grade).ToList();
+    Console.WriteLine(string.Join(",", studentGrades));
